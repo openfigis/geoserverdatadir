@@ -1,6 +1,80 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>geoserverdatadir</groupId>
-  <artifactId>geoserverdatadir</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>geoserverdatadir</groupId>
+	<artifactId>geoserverdatadir</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<build>
+
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${basedir}/target/fromDir</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0-beta-3</version>
+				<!-- Contains unique execution declarations for CSS files, layout images and war file. -->
+				<executions>
+					<!-- Declaration for copying CSS files via FTP -->
+					<execution>
+						<id>upload-erik</id>
+						<!-- Describes the lifecycle phase when the plugin's goals are being executed. -->
+						<phase>install</phase>
+						<!-- Describes the goals are executed in the specified lifecycle phase. -->
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						
+						<configuration>
+							<!-- Describes the local directory, which contents are copied. -->
+							<fromDir>${basedir}/target/fromDir</fromDir>
+							<!-- Describes the included files. -->
+							<includes>*</includes>
+							<!-- Describes the url of the remote FTP server. -->
+							<url>sftp://hqldvfigis1</url>
+							<!-- Describes the remote directory, where the contents of the local directory are copied. -->
+							<toDir>/home/vaningen/erikDir</toDir>
+							<!-- Describes the server id, which is used to fetch the used credentials from settings.xml. -->
+							<serverId>hqldvfigis1</serverId>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+	<profiles>
+		<profile>
+			<!-- These properties are defined in order to be able to run the integration tests also with H2 with the env-dev profile -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>env-dev</id>
+			<properties>
+				<erik.geoserver>here I come</erik.geoserver>
+			</properties>
+
+		</profile>
+	</profiles>
+
+
 </project>
