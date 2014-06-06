@@ -5,8 +5,11 @@
 	<artifactId>geoserverdatadir</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<build>
+	<properties>
+		<fromDir>${basedir}/target/fromDir</fromDir>
+	</properties>
 
+	<build>
 
 		<extensions>
 			<extension>
@@ -20,7 +23,7 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<targetPath>${basedir}/target/fromDir</targetPath>
+				<targetPath>${fromDir}</targetPath>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
@@ -41,12 +44,12 @@
 						<goals>
 							<goal>upload</goal>
 						</goals>
-						
+
 						<configuration>
 							<!-- Describes the local directory, which contents are copied. -->
-							<fromDir>${basedir}/target/fromDir</fromDir>
+							<fromDir>${fromDir}</fromDir>
 							<!-- Describes the included files. -->
-							<includes>*</includes>
+							<includes>*/**</includes>
 							<!-- Describes the url of the remote FTP server. -->
 							<url>sftp://hqldvfigis1</url>
 							<!-- Describes the remote directory, where the contents of the local directory are copied. -->
@@ -72,9 +75,6 @@
 			<properties>
 				<erik.geoserver>here I come</erik.geoserver>
 			</properties>
-
 		</profile>
 	</profiles>
-
-
 </project>
