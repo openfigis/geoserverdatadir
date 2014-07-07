@@ -4,7 +4,8 @@
 	<groupId>geoserverdatadir</groupId>
 	<artifactId>geoserverdatadir</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	<packaging>pom</packaging>
+	
 	<properties>
 		<fromDir>${basedir}/target/fromDir</fromDir>
 	</properties>
@@ -28,7 +29,7 @@
 			</resource>
 		</resources>
 
-		<plugins>
+		<plugins>	
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>wagon-maven-plugin</artifactId>
