@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+<HTML>
+<head>
+<title>
+OpenLayers Click Event Example
+</title>
+  <link rel="stylesheet" href="../theme/default/style.css" type="text/css">
+  <link rel="stylesheet" href="style.css" type="text/css">
+<script src="../OpenLayers.js">
+</script>
+<script type="text/javascript">
+
+OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+defaultHandlerOptions: {
+'single': true,
+'double': false,
+'pixelTolerance': 0,
+'stopSingle': false,
+'stopDouble': false
+}
+,
+initialize: function(options) {
+this.handlerOptions = OpenLayers.Util.extend(
+{
+}
+, this.defaultHandlerOptions
+);
+OpenLayers.Control.prototype.initialize.apply(
+this, arguments
+);
+this.handler = new OpenLayers.Handler.Click(
+this, {
+'click': this.trigger
+}
+, this.handlerOptions
+);
+}
+,
+trigger: function(e) {
+var lonlat = map.getLonLatFromViewPortPx(e.xy);
+alert("You clicked near " + lonlat.lat + " N, " +
++ lonlat.lon + " E");
+}
+}
+);
+var map;
+function init(){
+map = new OpenLayers.Map('map');
+var ol_wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+"http://labs.metacarta.com/wms/vmap0?", {
+layers: 'basic'
+}
+);
+var jpl_wms = new OpenLayers.Layer.WMS( "NASA Global Mosaic",
+"http://t1.hypercube.telascience.org/cgi-bin/landsat7",
+{
+layers: "landsat7"
+}
+);
+jpl_wms.setVisibility(false);
+map.addLayers([ol_wms, jpl_wms]);
+map.addControl(new OpenLayers.Control.LayerSwitcher());
+// map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+map.zoomToMaxExtent();
+var click = new OpenLayers.Control.Click();
+map.addControl(click);
+click.activate();
+}
+
+</script>
+<script charset="utf-8" id="injection_graph_func" src="chrome://skype_ff_toolbar_win/content/injection_graph_func.js">
+</script>
+</head>
+<body onload="init()">
+<h1 id="title">
+Click Event Example
+</h1>
+<div id="tags">
+</div>
+<p id="shortdesc">
+This example shows the use of the click handler and getLonLatFromViewPortPx functions to trigger events on mouse click.
+</p>
+<div style="" id="map" class="smallmap">
+<div class="olMapViewport" style="overflow: hidden; position: relative; width: 100%; height: 100%;" id="map_OpenLayers_ViewPort">
+<div style="position: absolute; z-index: 749; left: 0px; top: 0px;" id="map_OpenLayers_Container">
+<div class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 100; display: none;" id="OpenLayers.Layer.WMS_37">
+<div style="overflow: hidden; position: absolute; z-index: 1; left: 256px; top: 0px; width: 256px; height: 256px;">
+  <img src="http://labs.metacarta.com/wms/vmap0?LAYERS=basic&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;EXCEPTIONS=application%2Fvnd.ogc.se_inimage&amp;FORMAT=image%2Fjpeg&amp;SRS=EPSG%3A4326&amp;BBOX=0,-90,180,90&amp;WIDTH=256&amp;HEIGHT=256" class="olTileImage" style="width: 256px; height: 256px; position: relative;" id="OpenLayersDiv88">
+</div>
+<div style="overflow: hidden; position: absolute; z-index: 1; left: 0px; top: 0px; width: 256px; height: 256px;">
+  <img src="http://labs.metacarta.com/wms/vmap0?LAYERS=basic&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;EXCEPTIONS=application%2Fvnd.ogc.se_inimage&amp;FORMAT=image%2Fjpeg&amp;SRS=EPSG%3A4326&amp;BBOX=-180,-90,0,90&amp;WIDTH=256&amp;HEIGHT=256" class="olTileImage" style="width: 256px; height: 256px; position: relative;" id="OpenLayersDiv90">
+</div>
+</div>
+<div class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; display: block; z-index: 105;" id="OpenLayers.Layer.WMS_39">
+<div style="overflow: hidden; position: absolute; z-index: 1; left: 256px; top: 0px; width: 256px; height: 256px;">
+  <img src="http://t1.hypercube.telascience.org/cgi-bin/landsat7?LAYERS=landsat7&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;EXCEPTIONS=application%2Fvnd.ogc.se_inimage&amp;FORMAT=image%2Fjpeg&amp;SRS=EPSG%3A4326&amp;BBOX=0,-90,180,90&amp;WIDTH=256&amp;HEIGHT=256" class="olTileImage" style="width: 256px; height: 256px; position: relative;" id="OpenLayersDiv133">
+</div>
+<div style="overflow: hidden; position: absolute; z-index: 1; left: 0px; top: 0px; width: 256px; height: 256px;">
+  <img src="http://t1.hypercube.telascience.org/cgi-bin/landsat7?LAYERS=landsat7&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;EXCEPTIONS=application%2Fvnd.ogc.se_inimage&amp;FORMAT=image%2Fjpeg&amp;SRS=EPSG%3A4326&amp;BBOX=-180,-90,0,90&amp;WIDTH=256&amp;HEIGHT=256" class="olTileImage" style="width: 256px; height: 256px; position: relative;" id="OpenLayersDiv135">
+</div>
+</div>
+</div>
+<div unselectable="on" class="olControlPanZoom olControlNoSelect" style="position: absolute; left: 4px; top: 4px; z-index: 1004;" id="OpenLayers.Control.PanZoom_5">
+<div style="position: absolute; left: 13px; top: 4px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_panup">
+  <img src="../img/north-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_panup_innerImage">
+</div>
+<div style="position: absolute; left: 4px; top: 22px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_panleft">
+  <img src="../img/west-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_panleft_innerImage">
+</div>
+<div style="position: absolute; left: 22px; top: 22px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_panright">
+  <img src="../img/east-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_panright_innerImage">
+</div>
+<div style="position: absolute; left: 13px; top: 40px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_pandown">
+  <img src="../img/south-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_pandown_innerImage">
+</div>
+<div style="position: absolute; left: 13px; top: 63px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_zoomin">
+  <img src="../img/zoom-plus-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_zoomin_innerImage">
+</div>
+<div style="position: absolute; left: 13px; top: 81px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_zoomworld">
+  <img src="../img/zoom-world-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_zoomworld_innerImage">
+</div>
+<div style="position: absolute; left: 13px; top: 99px; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_zoomout">
+  <img src="../img/zoom-minus-mini.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_PanZoom_zoomout_innerImage">
+</div>
+</div>
+<div unselectable="on" class="olControlArgParser olControlNoSelect" style="position: absolute; z-index: 1004;" id="OpenLayers.Control.ArgParser_6">
+</div>
+<div unselectable="on" class="olControlAttribution olControlNoSelect" style="position: absolute; z-index: 1004;" id="OpenLayers.Control.Attribution_7">
+</div>
+<div unselectable="on" class="olControlLayerSwitcher olControlNoSelect" style="position: absolute; top: 25px; right: 0px; font-family: sans-serif; font-weight: bold; margin-top: 3px; margin-left: 3px; margin-bottom: 3px; font-size: smaller; color: white; background-color: transparent; padding-top: 0pt; padding-bottom: 0pt; width: 0px; z-index: 1005; height: 0px;" id="OpenLayers.Control.LayerSwitcher_41">
+<div style="background-color: transparent;">
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 1px; font-size: 1px; margin-left: 5px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 1px; font-size: 1px; margin-left: 3px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 1px; font-size: 1px; margin-left: 2px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 2px; font-size: 1px; margin-left: 1px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+</div>
+<div style="padding: 5px 75px 5px 10px; background-color: darkblue; width: 100%; height: 100%; opacity: 0.75; display: none;" id="layersDiv">
+<div style="margin-top: 3px; margin-left: 3px; margin-bottom: 3px;">
+Base Layer
+</div>
+<div style="padding-left: 10px;">
+  <input value="OpenLayers WMS" name="baseLayers" id="input_OpenLayers WMS" type="radio">
+<span style="vertical-align: bottom;">
+OpenLayers WMS
+</span>
+  <br>
+  <input checked="checked" value="NASA Global Mosaic" name="baseLayers" id="input_NASA Global Mosaic" type="radio">
+<span style="vertical-align: bottom;">
+NASA Global Mosaic
+</span>
+  <br>
+</div>
+<div style="margin-top: 3px; margin-left: 3px; margin-bottom: 3px; display: none;">
+Overlays
+</div>
+<div style="padding-left: 10px;">
+</div>
+</div>
+<div style="background-color: transparent;">
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 2px; font-size: 1px; margin-left: 1px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 1px; font-size: 1px; margin-left: 2px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 1px; font-size: 1px; margin-left: 3px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+<span style="overflow: hidden; background-color: darkblue; display: block; height: 1px; font-size: 1px; margin-left: 5px; margin-right: 0px; border-left-width: 0px; border-right-width: 0px; opacity: 0.75;">
+</span>
+</div>
+<div style="position: absolute; width: 18px; height: 18px; top: 5px; right: 0px;" id="OpenLayers_Control_MaximizeDiv">
+  <img src="../img/layer-switcher-maximize.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_MaximizeDiv_innerImage">
+</div>
+<div style="position: absolute; width: 18px; height: 18px; top: 5px; right: 0px; display: none;" id="OpenLayers_Control_MinimizeDiv">
+  <img src="../img/layer-switcher-minimize.png" style="position: relative; width: 18px; height: 18px;" id="OpenLayers_Control_MinimizeDiv_innerImage">
+</div>
+</div>
+<div unselectable="on" class="olControl olControlNoSelect" style="position: absolute; z-index: 1006;" id="OpenLayers.Control_92">
+</div>
+</div>
+</div>
+<div id="docs">
+Using the Click handler allows you to (for example) catch clicks without catching double clicks, something that standard browser events don't do for you. (Try double clicking: you'll zoom in, whereas using the browser click event, you would just get two alerts.) This example click control shows you how to use it.
+</div>
+</body>
+</html>
+
+Real housewives write extensions.
